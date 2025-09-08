@@ -20,11 +20,11 @@ export default {
 ],
   entryPointToBrowserMapping: undefined,
   assets: {
-    'index.csr.html': {size: 24606, hash: 'da0bd2b515d22b77fc6023c07b2e38871cf625565b1d0b6039735378bc425776', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 17059, hash: '4629b1696850a7452f92995587de430160c99392693621f93dbef3865befe242', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
-    'search/index.html': {size: 28217, hash: '3d7c103cff3aa3dde85769591b7f6d25ffc4af7f1e48b25da4adde3a326f71f1', text: () => import('./assets-chunks/search_index_html.mjs').then(m => m.default)},
-    'index.html': {size: 45384, hash: '1aad227f20057ef0d5c0933c03d288974b6ce33fb63806da2238a5c262b92e00', text: () => import('./assets-chunks/index_html.mjs').then(m => m.default)},
-    'sheet/index.html': {size: 49479, hash: '464538b3902782a5f0e40ddc32410246dcab1deccb715fb49593659f3f0aa685', text: () => import('./assets-chunks/sheet_index_html.mjs').then(m => m.default)},
+    'index.csr.html': {size: 24606, hash: 'a8e2a7b57fbbe1870a7d9b6e835dcf57ba583b20ec2d6e957548036871b2d39c', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 17059, hash: 'ff45ed64732d8e6fa720c3437a0c81e18af17c7ec5752016ed5a60649f70b7da', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'search/index.html': {size: 28217, hash: '3e01039f1156f19db4351995293c878480d481773962b40bcd91397290fb7316', text: () => import('./assets-chunks/search_index_html.mjs').then(m => m.default)},
+    'index.html': {size: 44550, hash: '4ba871ded2286cb74f2f11f0b7d51e4024d477ae022676ec8e019ca19f5d6a00', text: () => import('./assets-chunks/index_html.mjs').then(m => m.default)},
+    'sheet/index.html': {size: 39740, hash: '3232b2cc36c5d19bcad3db6f80fe4b2f0fddb278b4b9361c73bff2a13f357c03', text: () => import('./assets-chunks/sheet_index_html.mjs').then(m => m.default)},
     'styles-DTTV3AOM.css': {size: 8100, hash: 'jHWbwFO0LXY', text: () => import('./assets-chunks/styles-DTTV3AOM_css.mjs').then(m => m.default)}
   },
 };

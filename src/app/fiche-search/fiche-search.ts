@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { InspectionData, InspectionDataService } from '../inspection-data.service';
+import { InspectionDataService } from '../inspection-data.service';
 import { FormsModule } from '@angular/forms';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class FicheSearch {
   searchTerm = '';
-  searchResults: InspectionData[] = [];
+  searchResults: any[] = [];
   isLoading = false;
   noResults = false;
 
@@ -37,7 +37,7 @@ export class FicheSearch {
     });
   }
 
-  selectReport(report: InspectionData): void {
+  selectReport(report: any): void {
     this.inspectionDataService.setCurrentData(report);
     // Rediriger vers le formulaire si nécessaire
     this.router.navigate(['']);

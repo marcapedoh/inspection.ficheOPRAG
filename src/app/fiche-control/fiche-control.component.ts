@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { InspectionData, InspectionDataService } from '../inspection-data.service';
+import { InspectionDataService } from '../inspection-data.service';
 
 @Component({
   selector: 'app-fiche-control',
@@ -11,10 +11,10 @@ import { InspectionData, InspectionDataService } from '../inspection-data.servic
   imports: [FormsModule, CommonModule]
 })
 export class FicheControlComponent implements OnInit {
-  formData: InspectionData | null = null;
+  formData: any | null = null;
 
   // Initialiser avec une structure vide
-  emptyForm: InspectionData = {
+  emptyForm: any = {
     rapport_id: '',
     date: '',
     societe: '',
@@ -70,6 +70,11 @@ export class FicheControlComponent implements OnInit {
     this.inspectionDataService.currentData$.subscribe(data => {
       if (data) {
         this.formData = { ...data };
+        if (this.formData.creationDate) {
+          this.formData.creationDate = new Date(this.formData.creationDate);
+        }
+
+
       } else {
         this.formData = { ...this.emptyForm };
       }

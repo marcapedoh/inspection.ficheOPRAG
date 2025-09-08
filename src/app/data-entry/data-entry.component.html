@@ -28,11 +28,12 @@
     <div class="form-group">
       <label for="rapport_id">N° de rapport :</label>
       <input type="text" id="rapport_id" name="rapport_id"
-        [(ngModel)]="formData.rapport_id">
+        [(ngModel)]="formData.numroRapport">
     </div>
     <div class="form-group">
       <label for="date">Date :</label>
-      <input type="date" id="date" name="date" [(ngModel)]="formData.date">
+      <input type="date" id="date" name="date"
+        [(ngModel)]="formData.creationDate">
     </div>
     <div class="form-group">
       <label for="societe">Société / Entreprise :</label>
@@ -42,22 +43,15 @@
     <div class="form-group">
       <label for="localisation">Localisation :</label>
       <input type="text" id="localisation" name="localisation"
-        [(ngModel)]="formData.localisation">
+        [(ngModel)]="formData.localisationCertificationFait">
     </div>
-    <div class="form-group">
-      <label for="designation">Désignation, Identification équipement :</label>
-      <input type="text" id="designation" name="designation"
-        [(ngModel)]="formData.designation">
-    </div>
-    <div class="form-group">
+
+    <!-- <div class="form-group">
       <label for="plaque">Numéro de la plaque:</label>
       <input type="text" id="plaque" name="plaque"
-        [(ngModel)]="formData.plaque">
-    </div>
-    <div class="form-group">
-      <label for="annee">Année:</label>
-      <input type="text" id="annee" name="annee" [(ngModel)]="formData.annee">
-    </div>
+        [(ngModel)]="formData.vehicule.numeroAssurance">
+    </div> -->
+
     <div class="form-group">
       <label for="marque">Marque:</label>
       <input type="text" id="marque" name="marque"
@@ -85,18 +79,15 @@
   <div *ngIf="step === 2">
     <h2>Étape 2: Documents Présentés</h2>
     <ul class="doc-checklist">
-      <li><label><input type="checkbox" [(ngModel)]="formData.documents.notice">
+      <li><label><input type="checkbox">
           Notice d’instruction</label></li>
-      <li><label><input type="checkbox"
-            [(ngModel)]="formData.documents.maintenance"> Livret
+      <li><label><input type="checkbox"> Livret
           maintenance</label></li>
-      <li><label><input type="checkbox"
-            [(ngModel)]="formData.documents.conformite"> Déclaration /
+      <li><label><input type="checkbox"> Déclaration /
           Attestation de conformité</label></li>
-      <li><label><input type="checkbox"
-            [(ngModel)]="formData.documents.rapport"> Rapport de contrôle
+      <li><label><input type="checkbox"> Rapport de contrôle
           précédent</label></li>
-      <li><label><input type="checkbox" [(ngModel)]="formData.documents.paye">
+      <li><label><input type="checkbox" [(ngModel)]="formData.paye">
           Paye</label></li>
     </ul>
     <div class="button-group">
@@ -107,33 +98,35 @@
 
   <div *ngIf="step === 3">
     <h2>Étape 3: Condition d’intervention</h2>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="condition">Condition d’intervention :</label>
       <input type="text" id="condition" name="condition"
         [(ngModel)]="formData.condition">
-    </div>
-    <div class="form-group">
+    </div> -->
+    <!-- <div class="form-group">
       <label for="acces">Moyen d’accès :</label>
-      <input type="text" id="acces" name="acces" [(ngModel)]="formData.acces">
+      <input type="checkbox" id="acces" name="acces"
+        [(ngModel)]="formData.moyenAccess">
     </div>
     <div class="form-group">
       <label for="partiel">Partiel :</label>
-      <input type="text" id="partiel" name="partiel"
-        [(ngModel)]="formData.partiel">
-    </div>
+      <input type="checkbox" id="partiel" name="partiel"
+        [(ngModel)]="formData.moyenAccessPartiel">
+    </div> -->
     <div class="form-group">
       <label for="conducteur">Conducteur :</label>
       <input type="text" id="conducteur" name="conducteur"
-        [(ngModel)]="formData.conducteur">
+        [(ngModel)]="formData.moyenAccessConducteur">
     </div>
     <div class="form-group">
       <label for="motif">Motif contrôle :</label>
-      <input type="text" id="motif" name="motif" [(ngModel)]="formData.motif">
+      <input type="text" id="motif" name="motif"
+        [(ngModel)]="formData.motifControle">
     </div>
     <div class="form-group">
       <label for="motif">Norme de fabrication :</label>
       <input type="text" id="motif" name="motif"
-        [(ngModel)]="formData.normeSaisie">
+        [(ngModel)]="formData.normeFabrication">
     </div>
     <div class="form-group">
       <label for="validite">Validité :</label>
@@ -233,20 +226,21 @@
       <div class="part">
         <div class="obs-text">
           <strong>OBSERVATIONS :</strong>
-          <textarea [(ngModel)]="formData.observations"></textarea>
+          <textarea [(ngModel)]="formData.observationRecommendation"></textarea>
         </div>
         <div class="avis-section">
           <u>AVIS:</u>
           <label><input type="radio" name="avis" value="Favorable"
               [(ngModel)]="avis"> Favorable</label>
           <label><input type="radio" name="avis" value="Défavorable"
-              [(ngModel)]="avis"> Défavorable</label>
+              [(ngModel)]="avis">
+            Défavorable</label>
         </div>
       </div>
       <div class="divider"></div>
       <div class="part recom-part">
         <strong>RECOMMANDATIONS :</strong>
-        <textarea [(ngModel)]="formData.recommandations"></textarea>
+        <textarea [(ngModel)]="formData.observationRecommendation"></textarea>
       </div>
     </div>
     <div class="button-group">

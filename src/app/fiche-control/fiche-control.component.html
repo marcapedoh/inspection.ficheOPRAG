@@ -14,9 +14,9 @@
         <tbody>
           <tr>
             <td class="label">N° de rapport :</td>
-            <td><input type="text" [(ngModel)]="formData.rapport_id"></td>
+            <td><input type="text" [(ngModel)]="formData.numeroRapport"></td>
             <td class="label">Date :</td>
-            <td><input type="date" [(ngModel)]="formData.date"></td>
+            <td><input type="date" [(ngModel)]="formData.creationDate"></td>
           </tr>
           <tr>
             <td class="label">Société / Entreprise :</td>
@@ -26,38 +26,40 @@
           <tr>
             <td class="label">Localisation :</td>
             <td colspan="3"><input type="text"
-                [(ngModel)]="formData.localisation"></td>
+                [(ngModel)]="formData.localisationCertificationFait"></td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td class="label">Désignation,<br>Identification équipement :</td>
             <td colspan="3"><input type="text"
                 [(ngModel)]="formData.designation"></td>
-          </tr>
-          <tr>
+          </tr> -->
+          <!-- <tr>
             <td class="label">Numéro de la plaque:</td>
             <td><input type="text" [(ngModel)]="formData.plaque"></td>
             <td class="label">Année:</td>
             <td><input type="text" [(ngModel)]="formData.annee"></td>
-          </tr>
-          <tr>
+          </tr> -->
+          <!-- <tr>
             <td class="label">Marque:</td>
             <td><input type="text" [(ngModel)]="formData.marque"></td>
             <td class="label">Model:</td>
             <td><input type="text" [(ngModel)]="formData.model"></td>
-          </tr>
+          </tr> -->
           <tr>
             <td class="label">N°Parc:</td>
-            <td colspan="3"><input type="text" [(ngModel)]="formData.parc"></td>
+            <td colspan="3"><input type="text"
+                [(ngModel)]="formData.vehicule.numeroAssurance"></td>
           </tr>
           <tr>
             <td class="label">Numéro de série:</td>
             <td colspan="3"><input type="text" class="serial-input"
-                maxlength="30" [(ngModel)]="formData.serie"></td>
+                maxlength="30"
+                [(ngModel)]="formData.vehicule.numeroCarteGrise"></td>
           </tr>
           <tr>
             <td class="label">Norme de saisie:</td>
             <td colspan="3"><input type="text" class="serial-input"
-                maxlength="30" [(ngModel)]="formData.normeSaisie"></td>
+                maxlength="30" [(ngModel)]="formData.normeFabrication"></td>
           </tr>
         </tbody>
       </table>
@@ -71,19 +73,21 @@
               <strong>Documents présentés :</strong>
               <ul class="doc-checklist">
                 <li><input type="checkbox"
-                    [checked]="formData.documents.notice"> Notice
+                    [checked]="formData.noticeInstruction"> Notice
                   d’instruction</li>
                 <li><input type="checkbox"
-                    [checked]="formData.documents.maintenance"> Livret
+                    [checked]="formData.livretMaintenance"> Livret
                   maintenance</li>
                 <li><input type="checkbox"
-                    [checked]="formData.documents.conformite"> Déclaration /
+                    [checked]="formData.conformeReglement">
+                  Déclaration /
                   Attestation de conformité</li>
                 <li><input type="checkbox"
-                    [checked]="formData.documents.rapport"> Rapport de contrôle
+                    [checked]="formData.rapportControlePrecedent"> Rapport de
+                  contrôle
                   précédent</li>
                 <li><input type="checkbox"
-                    [checked]="formData.documents.paye">Payé?</li>
+                    [checked]="formData.paye">Payé?</li>
               </ul>
               <p class="small-text">
                 Déclaration (écrite) du chef d'établissement, des travaux prévus
@@ -100,21 +104,23 @@
       <table border="1">
         <tbody>
           <tr>
-            <td class="label">Condition d’intervention :</td>
-            <td><input type="text" [(ngModel)]="formData.condition"></td>
+            <!-- <td class="label">Condition d’intervention :</td>
+            <td><input type="text" [(ngModel)]="formData.condition"></td> -->
             <td class="label">Moyen d’accès :</td>
-            <td><input type="text" [(ngModel)]="formData.acces"></td>
+            <td><input type="text" [(ngModel)]="formData.moyenAccess"></td>
           </tr>
           <tr>
             <td class="label">Partiel :</td>
-            <td><input type="text" [(ngModel)]="formData.partiel"></td>
+            <td><input type="text"
+                [(ngModel)]="formData.moyenAccessPartiel"></td>
             <td class="label">Conducteur :</td>
-            <td><input type="text" [(ngModel)]="formData.conducteur"></td>
+            <td><input type="text"
+                [(ngModel)]="formData.moyenAccessConducteur"></td>
           </tr>
           <tr>
             <td class="label">Motif contrôle :</td>
             <td colspan="3"><input type="text"
-                [(ngModel)]="formData.motif"></td>
+                [(ngModel)]="formData.motifControle"></td>
           </tr>
         </tbody>
       </table>
@@ -179,32 +185,34 @@
       <div class="part">
         <div class="obs-text">
           <strong>OBSERVATIONS :</strong>
-          <textarea [(ngModel)]="formData.observations"></textarea>
+          <textarea [(ngModel)]="formData.observationRecommendation"></textarea>
         </div>
-        <div class="avis-section">
+        <!-- <div class="avis-section">
           <u>AVIS:</u>
           <label><input type="radio" name="avis" value="Favorable"
               [(ngModel)]="formData.avis"> Favorable</label>
           <label><input type="radio" name="avis" value="Défavorable"
               [(ngModel)]="formData.avis"> Défavorable</label>
-        </div>
+        </div> -->
       </div>
       <div class="divider"></div>
       <div class="part recom-part">
         <strong>RECOMMANDATIONS :</strong>
-        <textarea [(ngModel)]="formData.recommandations"></textarea>
+        <textarea [(ngModel)]="formData.observationRecommendation"></textarea>
       </div>
     </div>
 
     <div class="signatures">
       <div class="sign-box">
-        <span>Nom du représentant entreprise</span>
+        <span>Nom du représentant entreprise</span><br>
+
       </div>
       <div class="sign-box">
         <span>Nom du représentant BA’JINN Consulting</span>
       </div>
       <div class="sign-box">
         <span>Nom du représentant CFHP Services</span>
+        {{ formData.utilisateur.nom }} {{ formData.utilisateur.prenom }}
       </div>
     </div>
   </div>

@@ -19,11 +19,7 @@ interface CheckListItem {
 })
 export class DataEntryComponent {
   step = 1;
-  formData: any = {
-    rapport_id: 'CFHP-RP-013',
-    date: new Date().toISOString().split('T')[0],
-    documents: {},
-  };
+  formData: any = {};
 
   blockingPoints: CheckListItem[] = [
     { label: 'Assurance', value: '' },
@@ -126,8 +122,8 @@ export class DataEntryComponent {
 
   onSubmit() {
     this.inspectionDataService.formData = this.formData;
-    this.inspectionDataService.formData.blockingPoints = this.blockingPoints;
-    this.inspectionDataService.formData.nonBlockingPoints = this.nonBlockingPoints;
+    this.inspectionDataService.formData.blockingPoints = this.blockingPoints
+    this.inspectionDataService.formData.nonBlockingPoints = this.nonBlockingPoints
     this.inspectionDataService.formData.avis = this.avis;
     this.router.navigate(['/sheet']);
   }
