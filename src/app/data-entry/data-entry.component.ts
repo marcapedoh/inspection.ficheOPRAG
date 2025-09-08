@@ -121,10 +121,18 @@ export class DataEntryComponent {
   }
 
   onSubmit() {
-    this.inspectionDataService.formData = this.formData;
-    this.inspectionDataService.formData.blockingPoints = this.blockingPoints
-    this.inspectionDataService.formData.nonBlockingPoints = this.nonBlockingPoints
-    this.inspectionDataService.formData.avis = this.avis;
+    const data = {
+      ...this.inspectionDataService.getCurrentData(),
+      blockingPoints: this.blockingPoints,
+      nonBlockingPoints: this.nonBlockingPoints,
+      avis: this.avis
+    };
+
+    console.log("🚀 Données envoyées :", data);
+
+    this.inspectionDataService.setCurrentData(data);
+
     this.router.navigate(['/sheet']);
+
   }
 }

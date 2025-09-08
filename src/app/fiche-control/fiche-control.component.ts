@@ -70,9 +70,12 @@ export class FicheControlComponent implements OnInit {
     this.inspectionDataService.currentData$.subscribe(data => {
       if (data) {
         this.formData = { ...data };
+        console.log("📄 Données reçues :", this.formData);
         if (this.formData.creationDate) {
-          this.formData.creationDate = new Date(this.formData.creationDate);
+          const d = new Date(this.formData.creationDate);
+          this.formData.creationDate = d.toISOString().substring(0, 10); // yyyy-MM-dd
         }
+
 
 
       } else {
