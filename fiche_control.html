@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FICHE D'INSPECTION CAMIONNAGE OPRAG</title>
+<style>
+  /* Base and A4 Page Layout */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  html {
+    background-color: #EEE;
+  }
+  body {
+    font-family: "Calibri", sans-serif;
+    font-size: 11px;
+    line-height: 1.2;
+    color: #000;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 1cm;
+    margin: 1cm auto;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+  .content-wrapper {
+      flex: 1;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #000;
+    margin-bottom: 8px;
+  }
+  header img {
+    height: 70px;
+    max-width: 190px;
+    object-fit: contain;
+  }
+
+  /* Title Section */
+  .title-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .main-title {
+    border: 2px solid #000;
+    padding: 6px 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Meta Info Section */
+  .meta-section {
+    margin-bottom: 8px;
+    font-size: 11px;
+  }
+  .meta-section table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .meta-section td {
+    padding: 1px 4px;
+    vertical-align: middle;
+    border: 1px solid #000;
+  }
+  .meta-section .label {
+    font-weight: bold;
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: top;
+  }
+  .meta-section input[type="text"] {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 2px;
+    box-sizing: border-box;
+  }
+  .serial-input {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 10.5px;
+    padding-left: 4px;
+    border: 1px solid black !important;
+    background-image: repeating-linear-gradient(90deg, transparent, transparent 21px, #000 21px, #000 22px);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .doc-checklist {
+    list-style-type: none;
+    padding-left: 10px;
+    margin: 5px 0 0 0;
+  }
+  .doc-checklist li {
+    margin-bottom: 2px;
+  }
+  .doc-checklist input {
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .small-text {
+      font-size: 9px;
+      margin: 4px 0;
+  }
+
+  /* Main Content Columns */
+  .container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%;
+  }
+  .column {
+    width: 50%;
+  }
+  .section-title {
+    text-align: center;
+    margin: 0 0 6px 0;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  /* Tables */
+  .table-box {
+    border: 4px double #000;
+  }
+  table.items {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table.items tr {
+    border-bottom: 1px solid #000;
+  }
+  table.items tr:last-child {
+    border-bottom: none;
+  }
+  table.items td {
+    padding: 1px 4px;
+    vertical-align: middle;
+    font-size: 10px;
+  }
+  table.items td.label {
+    text-align: left;
+  }
+  table.items td.check-col {
+    width: 48px;
+    text-align: center;
+    border-left: 1px solid #000;
+    white-space: nowrap;
+  }
+  .check-col input[type="checkbox"] {
+    margin-left: 3px;
+    vertical-align: middle;
+  }
+  .items input[type="text"] {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 2px;
+    box-sizing: border-box;
+  }
+
+  /* Legend */
+  .legend-container {
+    margin-top: 8px;
+    font-size: 10px;
+  }
+  .legend-container u {
+    font-weight: bold;
+  }
+  #legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 15px;
+    margin: 4px 0;
+  }
+
+  /* Observations / Recommendations */
+  .obs-recom {
+    margin-top: 8px;
+    border: 2px solid #000;
+  }
+  .obs-recom .part {
+    padding: 2px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .obs-recom .part.recom-part {
+    display: block;
+  }
+  .obs-text {
+    flex-grow: 1;
+  }
+  .avis-section {
+    margin-left: 15px;
+    white-space: nowrap;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .avis-section u {
+    text-decoration: underline;
+  }
+  .avis-section label {
+    margin-left: 10px;
+    font-weight: normal;
+  }
+  .obs-recom .part strong {
+      font-size: 12px;
+  }
+  .obs-recom .divider {
+    border-top: 1px solid #000;
+  }
+  .obs-recom textarea {
+    width: 100%;
+    height: 35px;
+    border: none;
+    resize: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 11px;
+    padding: 2px 0;
+    box-sizing: border-box;
+    background: transparent;
+  }
+
+  /* Signatures */
+  .signatures {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  .sign-box {
+    flex: 1;
+    border: 2px solid #000;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 2px solid #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer img {
+    height: 55px;
+    max-width: 160px;
+    object-fit: contain;
+  }
+  footer span {
+    font-weight: bold;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+  }
+
+  .add-row-btn-container {
+    text-align: right;
+    margin: 4px;
+  }
+  .add-row-btn-container button {
+    padding: 2px 8px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  /* Print-specific styles */
+  .print-btn, .add-row-btn-container {
+    text-align: center;
+    margin-top: 15px;
+  }
+  .print-btn button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  @media print {
+    html, body {
+      background-color: #fff;
+    }
+    .page {
+      margin: 0;
+      padding: 0.8cm;
+      box-shadow: none;
+      border: none;
+    }
+    .print-btn, .add-row-btn-container {
+      display: none;
+    }
+    input[type="text"] {
+        border: none !important;
+        background-color: #fff !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+    <div class="content-wrapper">
+      <header>
+        <img src="logocimfep.jpg" alt="Logo CIMFEP">
+        <img src="logooprag.jpg" alt="Logo OPRAG">
+      </header>
+
+      <div class="title-row">
+        <div class="main-title">Fiche d’inspection Camionnage OPRAG</div>
+      </div>
+
+      <div class="meta-section">
+        <table border="1">
+            <tr>
+                <td class="label">N° de rapport :</td>
+                <td><input type="text" value="CFHP-RP-013"></td>
+                <td class="label">Date :</td>
+                <td><input type="text" value="2025-09-02"></td>
+            </tr>
+            <tr>
+                <td class="label">Société / Entreprise :</td>
+                <td colspan="3"><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="label">Localisation :</td>
+                <td colspan="3"><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="label">Désignation,<br>Identification équipement :</td>
+                <td colspan="3"><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="label">Numéro de la plaque:</td>
+                <td><input type="text"></td>
+                <td class="label">Année:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="label">Marque:</td>
+                <td><input type="text"></td>
+                <td class="label">Model:</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="label">N°Parc:</td>
+                <td colspan="3"><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="label">Numéro de série:</td>
+                <td colspan="3"><input type="text" class="serial-input" maxlength="30"></td>
+            </tr>
+        </table>
+      </div>
+
+      <div class="meta-section">
+        <table border="1">
+            <tr>
+                <td style="padding: 4px;">
+                    <strong>Documents présentés :</strong>
+                    <ul class="doc-checklist">
+                        <li><input type="checkbox"> Notice d’instruction</li>
+                        <li><input type="checkbox"> Livret maintenance</li>
+                        <li><input type="checkbox"> Déclaration / Attestation de conformité</li>
+                        <li><input type="checkbox"> Rapport de contrôle précédent</li>
+                    </ul>
+                    <p class="small-text">Déclaration (écrite) du chef d'établissement, des travaux prévus d'être effectué par l’équipement de transport contrôlé (pour l'assistance d'examen d'adéquation) :</p>
+                </td>
+            </tr>
+        </table>
+      </div>
+
+      <div class="meta-section">
+         <table border="1">
+            <tr>
+                <td class="label">Condition d’intervention :</td>
+                <td><input type="text"></td>
+                <td class="label">Moyen d’accès :</td>
+                <td><input type="text"></td>
+            </tr>
+             <tr>
+                <td class="label">Partiel :</td>
+                <td><input type="text"></td>
+                <td class="label">Conducteur :</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td class="label">Motif contrôle :</td>
+                <td colspan="3"><input type="text"></td>
+            </tr>
+        </table>
+    </div>
+
+      <div class="container">
+        <div class="column">
+          <div class="section-title">1/ Points de contrôles bloquants</div>
+          <div class="table-box">
+            <table class="items" aria-label="Points bloquants" id="blocking-points-table">
+              <tbody>
+                <tr><td class="label">Assurance</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Visite Technique</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Carte Grise</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Extincteur</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">EPI</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Phares</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Clignotants AV/ARR</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Feux Gabarit</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Feux arrière / Feux Stop</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Bip de recul</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Roues, Jantes et leurs Fixations</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Klaxon</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Rétroviseurs</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">État de la Benne / Plateau</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Main d'accouplement</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Diagnostic pannes électroniques</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Tolérance usure</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Système de charge batterie</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Essai freinage</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Fonctionnement manomètre de pression</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Flexibles de freinage</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Suspension</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Amortisseurs</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Bavette Arrière / Couvre roue</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">État des bonbonnes d'air</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+              </tbody>
+            </table>
+            <div class="add-row-btn-container">
+                <button type="button" onclick="addRow('blocking-points-table')">+ Ajouter</button>
+            </div>
+          </div>
+          <div class="legend-container">
+            <u>Légende:</u>
+            <div id="legend-items">
+                <span>C = Conforme</span>
+                <span>N.C = Non Conforme</span>
+                <span>B.E = Bon état</span>
+                <span>M.E = Mauvaise état</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="section-title">2/ Points de contrôles non bloquants</div>
+          <div class="table-box">
+            <table class="items" aria-label="Points non bloquants" id="non-blocking-points-table">
+              <tbody>
+                <tr><td class="label">Plaques d'immatriculation</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Trousse premier secours</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Feux de détresses</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Gyrophares</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Essuie-Glaces</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Ceinture de Sécurité</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Coupe batterie</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Carrosserie</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Cabine / habitacle</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+                <tr><td class="label">Pneu et Pneu de secours</td><td class="check-col">C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">N.C<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">B.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td><td class="check-col">M.E<input type="checkbox" onclick="handleCheckboxClick(this)"></td></tr>
+              </tbody>
+            </table>
+            <div class="add-row-btn-container">
+                <button type="button" onclick="addRow('non-blocking-points-table')">+ Ajouter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="obs-recom" role="region" aria-label="Observations et Recommandations">
+        <div class="part">
+          <div class="obs-text">
+            <strong>OBSERVATIONS :</strong>
+            <textarea></textarea>
+          </div>
+          <div class="avis-section">
+            <u>AVIS:</u>
+            <label><input type="checkbox" onclick="handleAvisClick(this)"> Favorable</label>
+            <label><input type="checkbox" onclick="handleAvisClick(this)"> Défavorable</label>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="part recom-part">
+          <strong>RECOMMANDATIONS :</strong>
+          <textarea></textarea>
+        </div>
+      </div>
+
+      <div class="signatures">
+        <div class="sign-box">
+            <span>Nom du représentant entreprise</span>
+            <span>Signature</span>
+        </div>
+        <div class="sign-box">
+            <span>Nom du représentant BA’JINN Consulting</span>
+            <span>Signature</span>
+        </div>
+        <div class="sign-box">
+            <span>Nom du représentant CFHP Services</span>
+            <span>Signature</span>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+        <img src="logocfhp.jpg" alt="Logo CFHP">
+        <span>PARTENAIRES TECHNIQUES</span>
+        <img src="logobajin.png" alt="Logo BA'JINN">
+    </footer>
+</div>
+
+<div class="print-btn">
+  <button onclick="window.print()">🖨️ Imprimer la fiche</button>
+</div>
+
+<script>
+  function addRow(tableId) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+
+    const tbody = table.getElementsByTagName('tbody')[0];
+    const newRow = tbody.insertRow();
+    newRow.style.borderBottom = '1px solid #000';
+
+    // Cell 1: Label
+    const labelCell = newRow.insertCell();
+    labelCell.className = 'label';
+    const labelInput = document.createElement('input');
+    labelInput.type = 'text';
+    labelInput.placeholder = 'Nouveau point de contrôle';
+    labelCell.appendChild(labelInput);
+
+    // Add the four check cells
+    const codes = ['C', 'N.C', 'B.E', 'M.E'];
+    for (const code of codes) {
+        const cell = newRow.insertCell();
+        cell.className = 'check-col';
+        cell.append(code + ' ');
+        const chkInput = document.createElement('input');
+        chkInput.type = 'checkbox';
+        chkInput.onclick = function() { handleCheckboxClick(this); };
+        cell.appendChild(chkInput);
+    }
+  }
+
+  function handleCheckboxClick(clickedCheckbox) {
+    const row = clickedCheckbox.closest('tr');
+    if (!row) return;
+
+    const checkboxesInRow = row.querySelectorAll('input[type="checkbox"]');
+    checkboxesInRow.forEach(checkbox => {
+      if (checkbox !== clickedCheckbox) {
+        checkbox.checked = false;
+      }
+    });
+  }
+
+  function handleAvisClick(clickedCheckbox) {
+    const avisContainer = document.querySelector('.avis-section');
+    const checkboxes = avisContainer.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+      if (checkbox !== clickedCheckbox) {
+        checkbox.checked = false;
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

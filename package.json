@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:ficheoprag_ang": "node dist/ficheoprag_ang/server/server.mjs"
+    "serve:ssr:ficheoprag_ang": "node dist/ficheoprag_ang/server/server.mjs",
+    "lint": "ng lint"
   },
   "prettier": {
     "printWidth": 100,
@@ -23,15 +24,22 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cdk": "^20.2.2",
     "@angular/common": "^20.2.0",
     "@angular/compiler": "^20.2.0",
     "@angular/core": "^20.2.0",
     "@angular/forms": "^20.2.0",
+    "@angular/material": "^20.2.2",
     "@angular/platform-browser": "^20.2.0",
     "@angular/platform-server": "^20.2.0",
     "@angular/router": "^20.2.0",
     "@angular/ssr": "^20.2.2",
+    "axios": "^1.11.0",
+    "dayjs": "^1.11.18",
     "express": "^5.1.0",
+    "lodash": "^4.17.21",
+    "primeicons": "^7.0.0",
+    "primeng": "^20.1.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -42,12 +50,16 @@
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
+    "angular-eslint": "20.2.0",
+    "eslint": "^9.33.0",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.9.2"
+    "prettier": "^3.6.2",
+    "typescript": "~5.9.2",
+    "typescript-eslint": "8.40.0"
   }
 }
