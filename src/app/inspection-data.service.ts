@@ -32,10 +32,13 @@ export class InspectionDataService {
 
   searchReports(rapportId: string): Observable<any[]> {
     const results = this.results.filter((item: any) =>
-      item.numeroRapport?.toLowerCase().includes(rapportId.toLowerCase())
+      (item?.vehicule?.numeroAssurance || '')
+        .toLowerCase()
+        .includes(rapportId.toLowerCase())
     );
-    return of(results); // on renvoie immédiatement les résultats
+    return of(results);
   }
+
 
   setCurrentData(data: any): void {
     this.currentData.next(data);
