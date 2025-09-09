@@ -62,6 +62,7 @@ export class FicheControlComponent implements OnInit {
     recommandations: ''
   };
 
+  recommendation: string = ''
 
   constructor(private inspectionDataService: InspectionDataService) { }
 
