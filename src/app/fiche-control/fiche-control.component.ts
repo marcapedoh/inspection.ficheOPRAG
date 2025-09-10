@@ -72,12 +72,10 @@ export class FicheControlComponent implements OnInit {
       if (data) {
         this.formData = { ...data };
         console.log("📄 Données reçues :", this.formData);
-        if (this.formData.creationDate) {
-          const d = new Date(this.formData.creationDate);
-          this.formData.creationDate = d.toISOString().substring(0, 10); // yyyy-MM-dd
-        }
-
-
+        const allPoints = [...this.formData.blockingPoints, ...this.formData.nonBlockingPoints];
+        const middleIndex = Math.ceil(allPoints.length / 2);
+        this.formData.controlPoints1 = allPoints.slice(0, middleIndex);
+        this.formData.controlPoints2 = allPoints.slice(middleIndex);
 
       } else {
         this.formData = { ...this.emptyForm };
@@ -85,12 +83,12 @@ export class FicheControlComponent implements OnInit {
     });
 
     // Initialiser avec les données actuelles si elles existent
-    const currentData = this.inspectionDataService.getCurrentData();
-    if (currentData) {
-      this.formData = { ...currentData };
-    } else {
-      this.formData = { ...this.emptyForm };
-    }
+    // const currentData = this.inspectionDataService.getCurrentData();
+    // if (currentData) {
+    //   this.formData = { ...currentData };
+    // } else {
+    //   this.formData = { ...this.emptyForm };
+    // }
   }
 
   print(): void {

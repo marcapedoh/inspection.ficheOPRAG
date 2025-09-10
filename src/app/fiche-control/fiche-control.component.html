@@ -1,3 +1,5 @@
+
+
 <div class="page" *ngIf="formData">
   <div class="content-wrapper">
     <header>
@@ -11,172 +13,166 @@
 
     <div class="meta-section">
       <table border="1">
-        <tbody>
-          <tr>
-            <td class="label">N° de rapport :</td>
-            <td><input type="text" [(ngModel)]="formData.numeroRapport"></td>
-            <td class="label">Date :</td>
-            <td><input type="text" [(ngModel)]="formData.creationDate"></td>
-          </tr>
-          <tr>
-            <td class="label">Société / Entreprise :</td>
-            <td colspan="3"><input type="text"
-                [(ngModel)]="formData.societe"></td>
-          </tr>
-          <tr>
-            <td class="label">Localisation :</td>
-            <td colspan="3"><input type="text"
-                [(ngModel)]="formData.localisationCertificationFait"></td>
-          </tr>
-          <!-- <tr>
-            <td class="label">Désignation,<br>Identification équipement :</td>
-            <td colspan="3"><input type="text"
-                [(ngModel)]="formData.designation"></td>
-          </tr> -->
-          <!-- <tr>
-            <td class="label">Numéro de la plaque:</td>
-            <td><input type="text" [(ngModel)]="formData.plaque"></td>
-            <td class="label">Année:</td>
-            <td><input type="text" [(ngModel)]="formData.annee"></td>
-          </tr> -->
-          <!-- <tr>
-            <td class="label">Marque:</td>
-            <td><input type="text" [(ngModel)]="formData.marque"></td>
-            <td class="label">Model:</td>
-            <td><input type="text" [(ngModel)]="formData.model"></td>
-          </tr> -->
-          <tr>
-            <td class="label">N°Parc:</td>
-            <td colspan="3"><input type="text"
-                [(ngModel)]="formData.vehicule.numeroAssurance"></td>
-          </tr>
-          <tr>
-            <td class="label">Numéro de série:</td>
-            <td colspan="3"><input type="text" class="serial-input"
-                maxlength="30"
-                [(ngModel)]="formData.vehicule.numeroCarteGrise"></td>
-          </tr>
-          <tr>
-            <td class="label">Norme de saisie:</td>
-            <td colspan="3"><input type="text" class="serial-input"
-                maxlength="30" [(ngModel)]="formData.normeFabrication"></td>
-          </tr>
-        </tbody>
+        <tr>
+          <td class="label">N° de rapport :</td>
+          <td><input type="text" [(ngModel)]="formData.numeroRapport"></td>
+          <td class="label">Date de contrôle :</td>
+          <td><input type="text" [(ngModel)]="formData.creationDate"></td>
+        </tr>
+        <tr>
+          <td class="label">Société / Entreprise :</td>
+          <td colspan="3"><input type="text"
+              [(ngModel)]="formData.societe"></td>
+        </tr>
+        <tr>
+          <td class="label">Localisation :</td>
+          <td colspan="3"><input type="text"
+              [(ngModel)]="formData.localisationCertificationFait"></td>
+        </tr>
+
+        <!-- <tr>
+          <td class="label">Numéro de la plaque:</td>
+          <td><input type="text" [(ngModel)]="formData.plaque"></td>
+          <td class="label">Année:</td>
+          <td><input type="text" [(ngModel)]="formData.annee"></td>
+        </tr>
+        <tr>
+          <td class="label">Marque:</td>
+          <td><input type="text" [(ngModel)]="formData.marque"></td>
+          <td class="label">Model:</td>
+          <td><input type="text" [(ngModel)]="formData.model"></td>
+        </tr> -->
+        <tr>
+          <td class="label">N°Parc:</td>
+          <td colspan="3"><input type="text"
+              [(ngModel)]="formData.vehicule.numeroAssurance"></td>
+        </tr>
+        <tr>
+          <td class="label">Numéro de série:</td>
+          <td colspan="3"><input type="text" class="serial-input" maxlength="30"
+              [(ngModel)]="formData.vehicule.numeroCarteGrise"></td>
+        </tr>
+        <!-- <tr>
+          <td class="label">Norme de saisie:</td>
+          <td colspan="3"><input type="text" class="serial-input"
+              maxlength="30" [(ngModel)]="formData.normeFabrication"></td>
+        </tr> -->
       </table>
     </div>
 
     <div class="meta-section">
       <table border="1">
-        <tbody>
-          <tr>
-            <td style="padding: 4px;">
-              <strong>Documents présentés :</strong>
-              <ul class="doc-checklist">
-                <li><input type="checkbox"
-                    [checked]="formData.noticeInstruction"> Notice
-                  d’instruction</li>
-                <li><input type="checkbox"
-                    [checked]="formData.livretMaintenance"> Livret
-                  maintenance</li>
-                <li><input type="checkbox"
-                    [checked]="formData.conformeReglement">
-                  Déclaration /
-                  Attestation de conformité</li>
-                <li><input type="checkbox"
-                    [checked]="formData.rapportControlePrecedent"> Rapport de
-                  contrôle
-                  précédent</li>
-                <li><input type="checkbox"
-                    [checked]="formData.paye">Payé?</li>
-              </ul>
-              <p class="small-text">
-                Déclaration (écrite) du chef d'établissement, des travaux prévus
-                d'être effectué par l’équipement de transport contrôlé (pour
-                l'assistance d'examen d'adéquation) :
-              </p>
-            </td>
-          </tr>
-        </tbody>
+        <tr>
+          <td class="label">Documents présentés :</td>
+          <td>
+            <ul class="doc-checklist">
+              <li><input type="checkbox" [checked]="formData.noticeInstruction">
+                Notice d’instruction</li>
+              <li><input type="checkbox"
+                  [checked]="formData.livretMaintenance"> Livret
+                maintenance</li>
+              <li><input type="checkbox"
+                  [checked]="formData.conformeReglement"> Déclaration /
+                Attestation de conformité</li>
+              <li><input type="checkbox" [checked]="formData.paye">
+                Payé</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <p class="small-text">Déclaration (écrite) du chef d'établissement,
+              des travaux prévus d'être effectué par l’équipement de transport
+              contrôlé (pour l'assistance d'examen d'adéquation) :</p>
+          </td>
+        </tr>
       </table>
     </div>
 
     <div class="meta-section">
       <table border="1">
-        <tbody>
-          <tr>
-            <!-- <td class="label">Condition d’intervention :</td>
-            <td><input type="text" [(ngModel)]="formData.condition"></td> -->
-            <td class="label">Moyen d’accès :</td>
-            <td><input type="text" [(ngModel)]="formData.moyenAccess"></td>
-          </tr>
-          <tr>
-            <td class="label">Partiel :</td>
-            <td><input type="text"
-                [(ngModel)]="formData.moyenAccessPartiel"></td>
-            <td class="label">Conducteur :</td>
-            <td><input type="text"
-                [(ngModel)]="formData.moyenAccessConducteur"></td>
-          </tr>
-          <tr>
-            <td class="label">Motif contrôle :</td>
-            <td colspan="3"><input type="text"
-                [(ngModel)]="formData.motifControle"></td>
-          </tr>
-        </tbody>
+        <tr>
+          <!-- <td class="label">Condition d’intervention :</td>
+          <td><input type="text" [(ngModel)]="formData.condition"></td> -->
+          <td class="label">Moyen d’accès :</td>
+          <td><input type="checkbox" [checked]="formData.moyenAccess"></td>
+        </tr>
+        <tr>
+          <td class="label">Partiel :</td>
+          <td><input type="checkbox"
+              [checked]="formData.moyenAccessPartiel"></td>
+          <td class="label">Conducteur :</td>
+          <td><input type="checkbox"
+              [checked]="formData.moyenAccessConducteur"></td>
+        </tr>
+        <tr>
+          <td class="label">Motif contrôle :</td>
+          <td><input type="text" [(ngModel)]="formData.motifControle"></td>
+          <td class="label">Norme de Fabrication :</td>
+          <td><input type="text" [(ngModel)]="formData.normeFabrication"></td>
+        </tr>
       </table>
     </div>
 
-    <div class="container">
-      <div class="column">
-        <div class="section-title">1/ Points de contrôles bloquants</div>
-        <div class="table-box">
-          <table class="items" aria-label="Points bloquants">
-            <tbody>
-              <tr *ngFor="let item of formData.blockingPoints; let i = index">
-                <td class="label">{{ item.label }}</td>
-                <td class="check-col">C<input type="checkbox"
-                    [checked]="item.value === 'C'"></td>
-                <td class="check-col">N.C<input type="checkbox"
-                    [checked]="item.value === 'N.C'"></td>
-                <td class="check-col">B.E<input type="checkbox"
-                    [checked]="item.value === 'B.E'"></td>
-                <td class="check-col">M.E<input type="checkbox"
-                    [checked]="item.value === 'M.E'"></td>
-              </tr>
-            </tbody>
-          </table>
+    <div class="section-title">POINTS DE CONTRÔLE</div>
+    <div class="printable-group">
+      <div class="container">
+        <div class="column">
+          <div class="table-box">
+            <table class="items" aria-label="Points de contrôle">
+              <tbody>
+                <tr *ngFor="let item of formData.controlPoints1; let i = index">
+                  <td class="label">{{ item.label }}</td>
+                  <td class="check-col">C<input type="checkbox"
+                      [checked]="item.value === 'C'"></td>
+                  <td class="check-col">N.C<input type="checkbox"
+                      [checked]="item.value === 'N.C'"></td>
+                  <td class="check-col">B.E<input type="checkbox"
+                      [checked]="item.value === 'B.E'"></td>
+                  <td class="check-col">M.E<input type="checkbox"
+                      [checked]="item.value === 'M.E'"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="legend-container">
-          <u>Légende:</u>
-          <div id="legend-items">
-            <span>C = Conforme</span>
-            <span>N.C = Non Conforme</span>
-            <span>B.E = Bon état</span>
-            <span>M.E = Mauvaise état</span>
+        <div class="column">
+          <div class="table-box">
+            <table class="items" aria-label="Points de contrôle">
+              <tbody>
+                <tr *ngFor="let item of formData.controlPoints2; let i = index">
+                  <td class="label">{{ item.label }}</td>
+                  <td class="check-col">C<input type="checkbox"
+                      [checked]="item.value === 'C'"></td>
+                  <td class="check-col">N.C<input type="checkbox"
+                      [checked]="item.value === 'N.C'"></td>
+                  <td class="check-col">B.E<input type="checkbox"
+                      [checked]="item.value === 'B.E'"></td>
+                  <td class="check-col">M.E<input type="checkbox"
+                      [checked]="item.value === 'M.E'"></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
 
-      <div class="column">
-        <div class="section-title">2/ Points de contrôles non bloquants</div>
-        <div class="table-box">
-          <table class="items" aria-label="Points non bloquants">
-            <tbody>
-              <tr
-                *ngFor="let item of formData.nonBlockingPoints; let i = index">
-                <td class="label">{{ item.label }}</td>
-                <td class="check-col">C<input type="checkbox"
-                    [checked]="item.value === 'C'"></td>
-                <td class="check-col">N.C<input type="checkbox"
-                    [checked]="item.value === 'N.C'"></td>
-                <td class="check-col">B.E<input type="checkbox"
-                    [checked]="item.value === 'B.E'"></td>
-                <td class="check-col">M.E<input type="checkbox"
-                    [checked]="item.value === 'M.E'"></td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="page-break"></div>
+
+      <!-- <hr>
+      <hr>
+      <hr> -->
+
+      <div class="legend-container">
+        <u>Légende:</u>
+        <div id="legend-items">
+          <span>C = Conforme</span>
+          <span>N.C = Non Conforme</span>
+          <span>B.E = Bon état</span>
+          <span>M.E = Mauvaise état</span>
         </div>
+        <!-- <hr>
+        <hr> -->
       </div>
     </div>
 
@@ -187,13 +183,13 @@
           <strong>OBSERVATIONS :</strong>
           <textarea [(ngModel)]="formData.observationRecommendation"></textarea>
         </div>
-        <!-- <div class="avis-section">
+        <div class="avis-section">
           <u>AVIS:</u>
-          <label><input type="radio" name="avis" value="Favorable"
-              [(ngModel)]="formData.avis"> Favorable</label>
-          <label><input type="radio" name="avis" value="Défavorable"
-              [(ngModel)]="formData.avis"> Défavorable</label>
-        </div> -->
+          <label><input type="radio" name="avis" value="Favorable">
+            Favorable</label>
+          <label><input type="radio" name="avis" value="Défavorable">
+            Défavorable</label>
+        </div>
       </div>
       <div class="divider"></div>
       <div class="part recom-part">
@@ -204,23 +200,27 @@
 
     <div class="signatures">
       <div class="sign-box">
-        <span>Nom du représentant entreprise</span><br>
-
+        <span>Nom du représentant entreprise</span>
       </div>
       <div class="sign-box">
-        <span>Nom du représentant BA’JINN Consulting</span>
+        <span>Nom du représentant BA’JINN Consulting</span>{{
+        formData.utilisateur.inspection.code==='BJNC'?formData.utilisateur.nom+" "+formData.utilisateur.prenom:""
+        }}
       </div>
       <div class="sign-box">
-        <span>Nom du représentant CFHP Services</span>
-        {{ formData.utilisateur.nom }} {{ formData.utilisateur.prenom }}
+        <span>Nom du représentant CFHP Services</span>{{
+        formData.utilisateur.inspection.code==='CFHP'?formData.utilisateur.nom+" "+formData.utilisateur.prenom:""
+        }}
       </div>
     </div>
   </div>
 
   <footer>
-    <img src="assets/logocfhp.jpg" alt="Logo CFHP">
+    <div class="logo-container"><img src="assets/logocfhp.jpg" alt="Logo CFHP"
+        class="logocfhp"></div>
     <span>PARTENAIRES TECHNIQUES</span>
-    <img src="assets/logobajin.png" alt="Logo BA'JINN">
+    <div class="logo-container"><img src="assets/logobajin.png"
+        alt="Logo BA'JINN"></div>
   </footer>
 </div>
 

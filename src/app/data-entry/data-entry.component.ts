@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { InspectionDataService } from '../inspection-data.service';
 import { FormsModule } from '@angular/forms';
@@ -17,11 +17,23 @@ interface CheckListItem {
   standalone: true,
   imports: [FormsModule, CommonModule]
 })
-export class DataEntryComponent {
+export class DataEntryComponent implements OnInit {
   step = 1;
   formData: any = {};
 
-  blockingPoints: CheckListItem[] = [
+  allPoints: any[] = [
+    { label: 'Roues, Jantes et leurs Fixations', value: '' },
+    { label: 'Diagnostic pannes électroniques', value: '' },
+    { label: 'Fonctionnement manomètre de pression', value: '' },
+    { label: 'Bavette Arrière / Couvre roue', value: '' },
+    { label: "État des bonbonnes d'air", value: '' },
+    { label: 'Twist Lock + Sangles,Chaînes', value: '' },
+    { label: 'Usure Grue camion multi-lève', value: '' },
+    { label: 'Dommage visible grue multi-lève', value: '' },
+    { label: 'Vérification chassie multi-lève', value: '' },
+    { label: 'Vérification vérins multi-lève', value: '' },
+    { label: 'Vérification axes,goupilles,galets de guidage', value: '' },
+    { label: 'Essai de fonctionnement multi-lève', value: '' },
     { label: 'Assurance', value: '' },
     { label: 'Visite Technique', value: '' },
     { label: 'Carte Grise', value: '' },
@@ -32,21 +44,30 @@ export class DataEntryComponent {
     { label: 'Feux Gabarit', value: '' },
     { label: 'Feux arrière / Feux Stop', value: '' },
     { label: 'Bip de recul', value: '' },
-    { label: 'Roues, Jantes et leurs Fixations', value: '' },
     { label: 'Klaxon', value: '' },
     { label: 'Rétroviseurs', value: '' },
     { label: 'État de la Benne / Plateau', value: '' },
     { label: "Main d'accouplement", value: '' },
-    { label: 'Diagnostic pannes électroniques', value: '' },
     { label: 'Tolérance usure', value: '' },
     { label: 'Système de charge batterie', value: '' },
     { label: 'Essai freinage', value: '' },
-    { label: 'Fonctionnement manomètre de pression', value: '' },
     { label: 'Flexibles de freinage', value: '' },
     { label: 'Suspension', value: '' },
     { label: 'Amortisseurs', value: '' },
-    { label: 'Bavette Arrière / Couvre roue', value: '' },
-    { label: "État des bonbonnes d'air", value: '' }
+    { label: 'Etat des Béquilles', value: '' },
+    { label: "Dispositif d'attelage", value: '' },
+    { label: 'Usure maillon crochets', value: '' },
+    { label: 'Marquage charge multi-lève', value: '' },
+    { label: "Plaques d'immatriculation", value: '' },
+    { label: 'Trousse premier secours', value: '' },
+    { label: 'Feux de détresses', value: '' },
+    { label: 'Gyrophares', value: '' },
+    { label: 'Essuie-Glaces', value: '' },
+    { label: 'Ceinture de Sécurité', value: '' },
+    { label: 'Coupe batterie', value: '' },
+    { label: 'Etat de la Carrosserie', value: '' },
+    { label: 'Etat Cabine / habitacle', value: '' },
+    { label: 'Pneu et Pneu de secours', value: '' }
   ];
 
   moisOptions = [
@@ -75,18 +96,6 @@ export class DataEntryComponent {
     { value: 'VINGT_TROIS_MOIS', label: '23 MOIS' },
     { value: 'VINGT_QUATRE_MOIS', label: '24 MOIS' },
   ];
-  nonBlockingPoints: CheckListItem[] = [
-    { label: "Plaques d'immatriculation", value: '' },
-    { label: 'Trousse premier secours', value: '' },
-    { label: 'Feux de détresses', value: '' },
-    { label: 'Gyrophares', value: '' },
-    { label: 'Essuie-Glaces', value: '' },
-    { label: 'Ceinture de Sécurité', value: '' },
-    { label: 'Coupe batterie', value: '' },
-    { label: 'Carrosserie', value: '' },
-    { label: 'Cabine / habitacle', value: '' },
-    { label: 'Pneu et Pneu de secours', value: '' }
-  ];
 
   avis: string = '';
 
@@ -103,6 +112,11 @@ export class DataEntryComponent {
     this.step--;
   }
 
+  ngOnInit(): void {
+    this.updateColumns();
+  }
+
+
   onCheckboxChange(item: CheckListItem, value: string) {
     if (item.value === value) {
       item.value = '';
@@ -110,21 +124,26 @@ export class DataEntryComponent {
       item.value = value;
     }
   }
+  points1: any[] = [];
+  points2: any[] = [];
 
-  addRow(tableType: 'blocking' | 'non-blocking') {
-    const newItem: CheckListItem = { label: '', value: '', isNew: true };
-    if (tableType === 'blocking') {
-      this.blockingPoints = [...this.blockingPoints, newItem];
-    } else {
-      this.nonBlockingPoints = [...this.nonBlockingPoints, newItem];
-    }
+  updateColumns(): void {
+    const middleIndex = Math.ceil(this.allPoints.length / 2);
+    this.points1 = this.allPoints.slice(0, middleIndex);
+    this.points2 = this.allPoints.slice(middleIndex);
   }
+  addRow() {
+    const newItem: CheckListItem = { label: '', value: '', isNew: true };
+    this.allPoints.push(newItem);
+    this.updateColumns();
+  }
+
 
   onSubmit() {
     const data = {
       ...this.inspectionDataService.getCurrentData(),
-      blockingPoints: this.blockingPoints,
-      nonBlockingPoints: this.nonBlockingPoints,
+      blockingPoints: this.allPoints,
+      nonBlockingPoints: [],
       avis: this.avis
     };
 

@@ -152,7 +152,7 @@
         <div class="table-box">
           <table class="items" aria-label="Points bloquants">
             <tbody>
-              <tr *ngFor="let item of blockingPoints; let i = index">
+              <tr *ngFor="let item of points1; let i = index">
                 <td class="label">
                   <span *ngIf="!item.isNew">{{ item.label }}</span>
                   <input *ngIf="item.isNew" type="text" [(ngModel)]="item.label"
@@ -173,10 +173,10 @@
               </tr>
             </tbody>
           </table>
-          <div class="add-row-btn-container">
+          <!-- <div class="add-row-btn-container">
             <button type="button" (click)="addRow('blocking')">+
               Ajouter</button>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -185,7 +185,7 @@
         <div class="table-box">
           <table class="items" aria-label="Points non bloquants">
             <tbody>
-              <tr *ngFor="let item of nonBlockingPoints; let i = index">
+              <tr *ngFor="let item of points2; let i = index">
                 <td class="label">
                   <span *ngIf="!item.isNew">{{ item.label }}</span>
                   <input *ngIf="item.isNew" type="text" [(ngModel)]="item.label"
@@ -206,10 +206,10 @@
               </tr>
             </tbody>
           </table>
-          <div class="add-row-btn-container">
+          <!-- <div class="add-row-btn-container">
             <button type="button" (click)="addRow('non-blocking')">+
               Ajouter</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
