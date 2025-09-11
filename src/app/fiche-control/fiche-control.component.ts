@@ -12,33 +12,37 @@ import { InspectionDataService } from '../inspection-data.service';
 })
 export class FicheControlComponent implements OnInit {
   formData: any | null = null;
+  
+  // Constants for pagination calculation (adjusted for footer space)
+  private readonly LINES_PER_COLUMN_PAGE1 = 15; // Lines available on page 1 (after header/meta, before footer)
+  private readonly LINES_PER_COLUMN_PAGE2 = 18; // Lines available on page 2 (before obs/signatures/footer)
+  private readonly TARGET_PAGES = 2;
+  private readonly FOOTER_HEIGHT = 80; // Footer height in pixels
 
   // Initialiser avec une structure vide
   emptyForm: any = {
-    rapport_id: '',
-    date: '',
+    numeroRapport: '',
+    creationDate: '',
     societe: '',
-    localisation: '',
-    designation: '',
-    plaque: '',
-    annee: '',
-    marque: '',
-    model: '',
-    parc: '',
-    serie: '',
-    documents: {
-      notice: false,
-      maintenance: false,
-      conformite: false,
-      rapport: false,
-      paye: false
+    localisationCertificationFait: '',
+    vehicule: {
+      numeroAssurance: '',
+      numeroCarteGrise: ''
     },
-    condition: '',
-    acces: '',
-    partiel: '',
-    normeSaisie: "",
-    conducteur: '',
-    motif: '',
+    utilisateur: {
+      nom: '',
+      prenom: '',
+      inspection: { code: '' }
+    },
+    noticeInstruction: false,
+    livretMaintenance: false,
+    conformeReglement: false,
+    paye: false,
+    moyenAccess: false,
+    moyenAccessPartiel: false,
+    moyenAccessConducteur: false,
+    motifControle: '',
+    normeFabrication: '',
     blockingPoints: [
       { label: "Freinage principal", value: "" },
       { label: "Freinage de stationnement", value: "" },
@@ -57,9 +61,7 @@ export class FicheControlComponent implements OnInit {
       { label: "État de la cabine", value: "" },
       { label: "État du tableau de bord", value: "" }
     ],
-    observations: '',
-    avis: '',
-    recommandations: ''
+    observationRecommendation: ''
   };
 
   recommendation: string = ''
@@ -70,15 +72,29 @@ export class FicheControlComponent implements OnInit {
     // S'abonner aux changements de données
     this.inspectionDataService.currentData$.subscribe(data => {
       if (data) {
-        this.formData = { ...data };
+        this.formData = {
+          ...this.emptyForm,
+          ...data,
+          vehicule: {
+            ...this.emptyForm.vehicule,
+            ...data.vehicule
+          },
+          utilisateur: {
+            ...this.emptyForm.utilisateur,
+            ...data.utilisateur,
+            inspection: {
+              ...this.emptyForm.utilisateur.inspection,
+              ...data.utilisateur?.inspection
+            }
+          }
+        };
         console.log("📄 Données reçues :", this.formData);
-        const allPoints = [...this.formData.blockingPoints, ...this.formData.nonBlockingPoints];
-        const middleIndex = Math.ceil(allPoints.length / 2);
-        this.formData.controlPoints1 = allPoints.slice(0, middleIndex);
-        this.formData.controlPoints2 = allPoints.slice(middleIndex);
+        // Calculate optimal distribution for 2-page layout
+        this.distributeControlPoints();
 
       } else {
         this.formData = { ...this.emptyForm };
+        this.distributeControlPoints();
       }
     });
 
@@ -95,6 +111,10 @@ export class FicheControlComponent implements OnInit {
     window.print();
   }
 
+  trackByIndex(index: number, item: any): number {
+    return index;
+  }
+
   // Méthode pour mettre à jour la valeur d'un point de contrôle
   updatePointValue(point: any, value: string): void {
     point.value = value;
@@ -104,5 +124,62 @@ export class FicheControlComponent implements OnInit {
   resetForm(): void {
     this.formData = { ...this.emptyForm };
     this.inspectionDataService.setCurrentData(this.emptyForm);
+  }
+
+  // Calculate optimal distribution for 2-page, 2-column layout
+  private distributeControlPoints(): void {
+    if (!this.formData) {
+      return;
+    }
+
+    // Ensure blocking and non-blocking points exist
+    const blockingPoints = this.formData.blockingPoints || [];
+    const nonBlockingPoints = this.formData.nonBlockingPoints || [];
+    const allPoints = [...blockingPoints, ...nonBlockingPoints];
+    
+    // Calculate total available space across both pages
+    const page1Capacity = this.LINES_PER_COLUMN_PAGE1 * 2; // 2 columns on page 1
+    const page2Capacity = this.LINES_PER_COLUMN_PAGE2 * 2; // 2 columns on page 2
+    const totalCapacity = page1Capacity + page2Capacity;
+    
+    // Determine if we need to add empty rows to fill the structure evenly
+    const targetTotalPoints = Math.min(totalCapacity, Math.max(allPoints.length, page1Capacity));
+    const emptyPointsNeeded = Math.max(0, targetTotalPoints - allPoints.length);
+    
+    // Add empty points to maintain structure
+    for (let i = 0; i < emptyPointsNeeded; i++) {
+      allPoints.push({ label: '', value: '' });
+    }
+
+    // Smart distribution: Fill page 1 first, then page 2
+    const pointsForPage1 = Math.min(allPoints.length, page1Capacity);
+    const pointsPerColumnPage1 = Math.ceil(pointsForPage1 / 2);
+    
+    // Page 1 columns
+    this.formData.controlPoints1 = allPoints.slice(0, pointsPerColumnPage1);
+    this.formData.controlPoints2 = allPoints.slice(pointsPerColumnPage1, pointsForPage1);
+    
+    // Page 2 columns (remaining points)
+    const remainingPoints = allPoints.slice(pointsForPage1);
+    const pointsPerColumnPage2 = Math.ceil(remainingPoints.length / 2);
+    
+    this.formData.controlPoints3 = remainingPoints.slice(0, pointsPerColumnPage2);
+    this.formData.controlPoints4 = remainingPoints.slice(pointsPerColumnPage2);
+
+    // Ensure all arrays exist even if empty
+    this.formData.controlPoints1 = this.formData.controlPoints1 || [];
+    this.formData.controlPoints2 = this.formData.controlPoints2 || [];
+    this.formData.controlPoints3 = this.formData.controlPoints3 || [];
+    this.formData.controlPoints4 = this.formData.controlPoints4 || [];
+
+    console.log('Smart Distribution:', {
+      total: allPoints.length,
+      page1Total: pointsForPage1,
+      page2Total: remainingPoints.length,
+      col1: this.formData.controlPoints1.length,
+      col2: this.formData.controlPoints2.length,
+      col3: this.formData.controlPoints3.length,
+      col4: this.formData.controlPoints4.length
+    });
   }
 }

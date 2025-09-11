@@ -114,23 +114,25 @@
       </table>
     </div>
 
+    <!-- PAGE 1: Header + Meta + Control Points (2 columns) -->
     <div class="section-title">POINTS DE CONTRÔLE</div>
-    <div class="printable-group">
+    <div class="page-1-controls">
       <div class="container">
         <div class="column">
           <div class="table-box">
             <table class="items" aria-label="Points de contrôle">
               <tbody>
-                <tr *ngFor="let item of formData.controlPoints1; let i = index">
-                  <td class="label">{{ item.label }}</td>
+                <tr *ngFor="let item of formData.controlPoints1; index as i" 
+                    [class.empty-row]="!item.label">
+                  <td class="label">{{ item.label }}&nbsp;</td>
                   <td class="check-col">C<input type="checkbox"
-                      [checked]="item.value === 'C'"></td>
+                      [checked]="item.value === 'C'" [disabled]="!item.label"></td>
                   <td class="check-col">N.C<input type="checkbox"
-                      [checked]="item.value === 'N.C'"></td>
+                      [checked]="item.value === 'N.C'" [disabled]="!item.label"></td>
                   <td class="check-col">B.E<input type="checkbox"
-                      [checked]="item.value === 'B.E'"></td>
+                      [checked]="item.value === 'B.E'" [disabled]="!item.label"></td>
                   <td class="check-col">M.E<input type="checkbox"
-                      [checked]="item.value === 'M.E'"></td>
+                      [checked]="item.value === 'M.E'" [disabled]="!item.label"></td>
                 </tr>
               </tbody>
             </table>
@@ -140,28 +142,84 @@
           <div class="table-box">
             <table class="items" aria-label="Points de contrôle">
               <tbody>
-                <tr *ngFor="let item of formData.controlPoints2; let i = index">
-                  <td class="label">{{ item.label }}</td>
+                <tr *ngFor="let item of formData.controlPoints2; index as i"
+                    [class.empty-row]="!item.label">
+                  <td class="label">{{ item.label }}&nbsp;</td>
                   <td class="check-col">C<input type="checkbox"
-                      [checked]="item.value === 'C'"></td>
+                      [checked]="item.value === 'C'" [disabled]="!item.label"></td>
                   <td class="check-col">N.C<input type="checkbox"
-                      [checked]="item.value === 'N.C'"></td>
+                      [checked]="item.value === 'N.C'" [disabled]="!item.label"></td>
                   <td class="check-col">B.E<input type="checkbox"
-                      [checked]="item.value === 'B.E'"></td>
+                      [checked]="item.value === 'B.E'" [disabled]="!item.label"></td>
                   <td class="check-col">M.E<input type="checkbox"
-                      [checked]="item.value === 'M.E'"></td>
+                      [checked]="item.value === 'M.E'" [disabled]="!item.label"></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="page-break"></div>
+  </div>
 
-      <!-- <hr>
-      <hr>
-      <hr> -->
+  <!-- Footer Page 1 -->
+  <footer class="page-footer">
+    <div class="logo-container"><img src="assets/logocfhp.jpg" alt="Logo CFHP"
+        class="logocfhp"></div>
+    <span>PARTENAIRES TECHNIQUES</span>
+    <div class="logo-container"><img src="assets/logobajin.png"
+        alt="Logo BA'JINN"></div>
+  </footer>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page page-2" *ngIf="formData">
+  <div class="content-wrapper">
+    <!-- PAGE 2: Remaining Control Points + Legend + Observations + Signatures -->
+    <div class="page-2-content">
+      <div class="container">
+        <div class="column">
+          <div class="table-box">
+            <table class="items" aria-label="Points de contrôle">
+              <tbody>
+                <tr *ngFor="let item of formData.controlPoints3; index as i"
+                    [class.empty-row]="!item.label">
+                  <td class="label">{{ item.label }}&nbsp;</td>
+                  <td class="check-col">C<input type="checkbox"
+                      [checked]="item.value === 'C'" [disabled]="!item.label"></td>
+                  <td class="check-col">N.C<input type="checkbox"
+                      [checked]="item.value === 'N.C'" [disabled]="!item.label"></td>
+                  <td class="check-col">B.E<input type="checkbox"
+                      [checked]="item.value === 'B.E'" [disabled]="!item.label"></td>
+                  <td class="check-col">M.E<input type="checkbox"
+                      [checked]="item.value === 'M.E'" [disabled]="!item.label"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="column">
+          <div class="table-box">
+            <table class="items" aria-label="Points de contrôle">
+              <tbody>
+                <tr *ngFor="let item of formData.controlPoints4; index as i"
+                    [class.empty-row]="!item.label">
+                  <td class="label">{{ item.label }}&nbsp;</td>
+                  <td class="check-col">C<input type="checkbox"
+                      [checked]="item.value === 'C'" [disabled]="!item.label"></td>
+                  <td class="check-col">N.C<input type="checkbox"
+                      [checked]="item.value === 'N.C'" [disabled]="!item.label"></td>
+                  <td class="check-col">B.E<input type="checkbox"
+                      [checked]="item.value === 'B.E'" [disabled]="!item.label"></td>
+                  <td class="check-col">M.E<input type="checkbox"
+                      [checked]="item.value === 'M.E'" [disabled]="!item.label"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
 
       <div class="legend-container">
         <u>Légende:</u>
@@ -171,51 +229,50 @@
           <span>B.E = Bon état</span>
           <span>M.E = Mauvaise état</span>
         </div>
-        <!-- <hr>
-        <hr> -->
       </div>
-    </div>
 
-    <div class="obs-recom" role="region"
-      aria-label="Observations et Recommandations">
-      <div class="part">
-        <div class="obs-text">
-          <strong>OBSERVATIONS :</strong>
-          <textarea [(ngModel)]="formData.observationRecommendation"></textarea>
+      <div class="obs-recom" role="region"
+        aria-label="Observations et Recommandations">
+        <div class="part">
+          <div class="obs-text">
+            <strong>OBSERVATIONS :</strong>
+            <textarea [(ngModel)]="formData.observationRecommendation"></textarea>
+          </div>
+          <div class="avis-section">
+            <u>AVIS:</u>
+            <label><input type="radio" name="avis" value="Favorable">
+              Favorable</label>
+            <label><input type="radio" name="avis" value="Défavorable">
+              Défavorable</label>
+          </div>
         </div>
-        <div class="avis-section">
-          <u>AVIS:</u>
-          <label><input type="radio" name="avis" value="Favorable">
-            Favorable</label>
-          <label><input type="radio" name="avis" value="Défavorable">
-            Défavorable</label>
+        <div class="divider"></div>
+        <div class="part recom-part">
+          <strong>RECOMMANDATIONS :</strong>
+          <textarea [(ngModel)]="recommendation"></textarea>
         </div>
       </div>
-      <div class="divider"></div>
-      <div class="part recom-part">
-        <strong>RECOMMANDATIONS :</strong>
-        <textarea [(ngModel)]="recommendation"></textarea>
-      </div>
-    </div>
 
-    <div class="signatures">
-      <div class="sign-box">
-        <span>Nom du représentant entreprise</span>
-      </div>
-      <div class="sign-box">
-        <span>Nom du représentant BA’JINN Consulting</span>{{
-        formData.utilisateur.inspection.code==='BJNC'?formData.utilisateur.nom+" "+formData.utilisateur.prenom:""
-        }}
-      </div>
-      <div class="sign-box">
-        <span>Nom du représentant CFHP Services</span>{{
-        formData.utilisateur.inspection.code==='CFHP'?formData.utilisateur.nom+" "+formData.utilisateur.prenom:""
-        }}
+      <div class="signatures">
+        <div class="sign-box">
+          <span>Nom du représentant entreprise</span>
+        </div>
+        <div class="sign-box">
+          <span>Nom du représentant BA'JINN Consulting</span>{{
+          formData.utilisateur?.inspection?.code==='BJNC'?formData.utilisateur?.nom+" "+formData.utilisateur?.prenom:""
+          }}
+        </div>
+        <div class="sign-box">
+          <span>Nom du représentant CFHP Services</span>{{
+          formData.utilisateur?.inspection?.code==='CFHP'?formData.utilisateur?.nom+" "+formData.utilisateur?.prenom:""
+          }}
+        </div>
       </div>
     </div>
   </div>
 
-  <footer>
+  <!-- Footer Page 2 -->
+  <footer class="page-footer">
     <div class="logo-container"><img src="assets/logocfhp.jpg" alt="Logo CFHP"
         class="logocfhp"></div>
     <span>PARTENAIRES TECHNIQUES</span>
